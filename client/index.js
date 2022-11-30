@@ -23,16 +23,16 @@ const createChildCard = (child) => {
         <h5>Tithing</h5>
         <h5>${child.tithing}</h5>
         
-        <button>-</button>
-        <input placeholder="amount">
-        <button>+</button>
+        <button id="minusTithing${child.id}">-</button>
+        <input id="tithing${child.id}" placeholder="amount">
+        <button id="addTithing${child.id}">+</button>
         
         
         
         <h5>Savings</h5>
         <h5>${child.savings}</h5>
         
-        <button >-</button>
+        <button>-</button>
         <input id="" placeholder="amount">
         <button>+</button>
         
@@ -49,7 +49,20 @@ const createChildCard = (child) => {
             `
             displayChild.appendChild(newChildCard)
 
-            
+            let tithingInput = document.querySelector(`#tithing${child.id}`)
+            let addTithingBtn = document.querySelector(`#addTithing${child.id}`)
+            let minusTithingBtn = document.querySelector(`#minusTithing${child.id}`)
+
+            const bodyObj = {
+                tithingInput,
+                savingsInput,
+                spendingInput
+            }
+
+            addTithingBtn.addEventListener('click', updateChild(child.id,bodyObj))
+
+
+
 }
 
 const displayChildren = (arr) => {
@@ -103,9 +116,9 @@ const deleteChild = (id) => {
     })
 }
 
-const updateChild = (id, type) => {
+const updateChild = (id, bodyObj) => {
 
-    axios.put(`${baseURL}/editChild/${id}`, {type})
+    axios.put(`${baseURL}/editChild/${id}`, bodyObj)
     .then((res) => {
         displayChild.innerHTML = ''
         displayChildren(res.data)
