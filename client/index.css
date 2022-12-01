@@ -1,11 +1,27 @@
+body {
+    
+}
+
+#childDisplay{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding-left: 5vw;
+    padding-right: 5vw;
+
+}
+
 
 .child-card{
+    display: flex;
+    flex-direction: column;
+    max-width: 25%;
     /* border: 1px;
     border-color: black;
     border-style: solid; */
     border-radius: 10px;
     width: 25vw;
-    margin-bottom: 5px;
+    margin-bottom: 50px;
     padding: 5px;
     box-shadow: 3px 3px 10px;
 }
