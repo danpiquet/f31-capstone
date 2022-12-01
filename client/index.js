@@ -1,73 +1,63 @@
 const baseURL = 'http://localhost:4000'
 
-const addChild = document.querySelector('#addChild')
+const addChild = document.querySelector('#submitNewChild')
 const displayChild = document.querySelector('#childDisplay')
+const updateTotals = document.querySelector('#updateBtn')
 
+let modal = document.getElementById('addChildModal')
+let modalBtn = document.getElementById('addChildBtn')
+let span = document.getElementsByClassName('close')[0]
+
+modalBtn.onclick = () => modal.style.display = 'block'
+
+span.onclick = () => modal.style.display = 'none'
+
+window.onclick = (event) => {
+    if(event.target == modal) {
+        modal.style.display = 'none'
+    }
+}
 
 const createChildCard = (child) => {
     const newChildCard = document.createElement('section')
     newChildCard.classList.add('child-card')
 
+    
     newChildCard.innerHTML = `
-        <h3>${child.name}</h3>
-
-        <h5>Total</h5>
-        <h5>${child.total}</h5>
-
-        <button onclick="updateChild(${child.id}, 'minus')">-</button>
-        <input id="${child.id} placeholder="amount">
-        <button onclick="updateChild(${child.id}, 'add')">+</button>
-        
-        
-        
-        <h5>Tithing</h5>
-        <h5>${child.tithing}</h5>
-        
-        <button id="minusTithing${child.id}">-</button>
-        <input id="tithing${child.id}" placeholder="amount">
-        <button id="addTithing${child.id}">+</button>
-        
-        
-        
-        <h5>Savings</h5>
-        <h5>${child.savings}</h5>
-        
-        <button>-</button>
-        <input id="" placeholder="amount">
-        <button>+</button>
-        
-        
-        
-        <h5>Spending</h5>
-        <h5>${child.spending}</h5>
-        
-        <button>-</button>
-        <input placeholder="amount">
-        <button>+</button>
-        <br></br>
-        <button onclick="deleteChild(${child.id})">Delete Child</button>
-            `
-            displayChild.appendChild(newChildCard)
-
-            let tithingInput = document.querySelector(`#tithing${child.id}`)
-            let addTithingBtn = document.querySelector(`#addTithing${child.id}`)
-            let minusTithingBtn = document.querySelector(`#minusTithing${child.id}`)
-
-            const bodyObj = {
-                tithingInput,
-                savingsInput,
-                spendingInput
-            }
-
-            addTithingBtn.addEventListener('click', updateChild(child.id,bodyObj))
-
-
-
+    <h2>${child.name}</h2>
+    
+    <h3>Total</h3>
+    <div class="total">
+    <h5>${child.total}</h5>
+    </div>
+    
+    <h5>Tithing</h5>
+    <h5>${child.tithing}</h5>
+    <h5>Savings</h5>
+    <h5>${child.savings}</h5>
+    <h5>Spending</h5>
+    <h5>${child.spending}</h5>
+    
+    <br>
+    
+    <h5>Update budget totals</h5>
+    <input id="tithing${child.id}" placeholder="tithing">
+    <input id="savings${child.id}" placeholder="savings">
+    <input id="spending${child.id}" placeholder="spending">
+    
+    <br>
+    <br>
+    <button id="updateBtn${child.id}" onclick="updateChild(${child.id})">Update Totals</button>
+    <br>
+    <br>
+    <button onclick="deleteChild(${child.id})">Delete Child</button>
+    `
+    displayChild.appendChild(newChildCard)
+          
 }
 
 const displayChildren = (arr) => {
     for(let i = 0;i < arr.length; i++){
-        console.log(arr[i])
         createChildCard(arr[i])
     }
 }
@@ -94,7 +84,6 @@ const createChild = () => {
         savings: savings.value,
         spending: spending.value
     }
-    console.log(bodyObj)
     axios.post(`${baseURL}/addChild`, bodyObj)
         .then((res) => {
             name.value = ''
@@ -109,14 +98,29 @@ const createChild = () => {
 }
 
 const deleteChild = (id) => {
-    axios.delete(`${baseURL}/deleteChild/:${id}`)
+    axios.delete(`${baseURL}/deleteChild/${id}`)
     .then((res) => {
         displayChild.innerHTML = ''
         displayChildren(res.data)
     })
+    .catch((err) => console.log(err))
 }
 
-const updateChild = (id, bodyObj) => {
+
+
+
+const updateChild = (id) => {
+
+    let tithingInput = document.querySelector(`#tithing${id}`)     
+    let savingsInput = document.querySelector(`#savings${id}`)
+    let spendingInput = document.querySelector(`#spending${id}`)
+
+    const bodyObj = {
+        tithingInput: tithingInput.value,
+        savingsInput: savingsInput.value,
+        spendingInput: spendingInput.value
+    }
+
 
     axios.put(`${baseURL}/editChild/${id}`, bodyObj)
     .then((res) => {
@@ -126,5 +130,7 @@ const updateChild = (id, bodyObj) => {
 }
 
 addChild.addEventListener('click',createChild)
+addChild.onclick = () => modal.style.display = 'none'
+// updateTotals.addEventListener('click', updateChild)
 
 getAllChildren()

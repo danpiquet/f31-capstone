@@ -14,18 +14,41 @@
         
     </header>
     <main>
-        <h3>Your budget cards</h3>
-        <section id="childDisplay"></section>
         <section id="addChild">
-            <h3>Add another child</h3>
-            <input id="nameInput" placeholder="Name"/>
-            <input id="totalInput" placeholder="Total"/>
-            <input id="tithingInput" placeholder="Tithing"/>
-            <input id="savingsInput" placeholder="Savings"/>
-            <input id="spendingInput" placeholder="Spending"/>
-            <button id="addChildBtn">Add Child</button>
+            <!-- <h3>Add another child</h3> -->
+            <!-- <input id="nameInput" placeholder="Name"/>
+                <input id="totalInput" placeholder="Total"/>
+                <input id="tithingInput" placeholder="Tithing"/>
+                <input id="savingsInput" placeholder="Savings"/>
+                <input id="spendingInput" placeholder="Spending"/> -->
+                <button id="addChildBtn">Add Child</button>
+                
+                <div id="addChildModal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span class="close">&times;</span>
+                            <h2>Add New Child</h2>
+                        </div>
+                        <div class="modal-body">
+                            <input id="nameInput" placeholder="Name"/>
+                            <input id="totalInput" placeholder="Total"/>
+                            <input id="tithingInput" placeholder="Tithing"/>
+                            <input id="savingsInput" placeholder="Savings"/>
+                            <input id="spendingInput" placeholder="Spending"/>
+                            <button id="submitNewChild">Submit</button>    
+                        </div>
+                    </div>
+                </div>
+
+                
+                      
+                <br>
+                <br>
+                <h3>Your budget cards</h3>
+        <section id="childDisplay"></section>
         </section>
     </main>
+    
     
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./index.js"></script>

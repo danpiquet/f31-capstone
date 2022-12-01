@@ -11,10 +11,10 @@ module.exports = {
         let newChild = {
             id: globalId,
             name,
-            total,
-            tithing,
-            savings,
-            spending
+            total: +total,
+            tithing: +tithing,
+            savings: +savings,
+            spending: +spending
         }
         children.push(newChild)
         globalId++
@@ -33,17 +33,17 @@ module.exports = {
         const {tithingInput, savingsInput, spendingInput} = req.body
         const {id} = req.params
         const index = children.findIndex((el) => +el.id === +id)
-
-        if(!tithingInput){
-            children[index].tithing = children[index].tithing
-        }else{
-            children[index].tithing += tithingInput
-        }
         
+  
+        !tithingInput ? children[index].tithing = +children[index].tithing : children[index].tithing += +tithingInput
+        !savingsInput ? children[index].savings = +children[index].savings : children[index].savings += +savingsInput
+        !spendingInput ? children[index].spending = +children[index].spending : children[index].spending += +spendingInput
+        
+        // children[index].total += +tithingInput+ +savingsInput+ +spendingInput
+        children[index].total = +children[index].total + +tithingInput
+        children[index].total = +children[index].total + +savingsInput
+        children[index].total = +children[index].total + +spendingInput
 
         res.status(200).send(children)
-
-
     }
-
 }
