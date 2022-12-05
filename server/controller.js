@@ -7,12 +7,12 @@ module.exports = {
         res.status(200).send(children)
     },
     addChild: (req, res) => {
-        const {name, total, tithing, savings, spending} = req.body
+        const {name, total, charity, savings, spending} = req.body
         let newChild = {
             id: globalId,
             name,
             total: +total,
-            tithing: +tithing,
+            charity: +charity,
             savings: +savings,
             spending: +spending
         }
@@ -27,20 +27,22 @@ module.exports = {
         res.status(200).send(children)
     },
 
-    //need to work on this
-    //add and subtract money from each account
+    
     editChild: (req, res) => {
-        const {tithingInput, savingsInput, spendingInput} = req.body
+        const {charityInput, savingsInput, spendingInput} = req.body
         const {id} = req.params
         const index = children.findIndex((el) => +el.id === +id)
-        
+
+      
+        console.log(children[index])
+        console.log(charityInput)
   
-        !tithingInput ? children[index].tithing = +children[index].tithing : children[index].tithing += +tithingInput
+        !charityInput ? children[index].charity = +children[index].charity : children[index].charity += +charityInput
         !savingsInput ? children[index].savings = +children[index].savings : children[index].savings += +savingsInput
         !spendingInput ? children[index].spending = +children[index].spending : children[index].spending += +spendingInput
         
-        // children[index].total += +tithingInput+ +savingsInput+ +spendingInput
-        children[index].total = +children[index].total + +tithingInput
+        
+        children[index].total = +children[index].total + +charityInput
         children[index].total = +children[index].total + +savingsInput
         children[index].total = +children[index].total + +spendingInput
 

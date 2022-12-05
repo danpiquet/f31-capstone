@@ -5,8 +5,14 @@ const displayChild = document.querySelector('#childDisplay')
 const updateTotals = document.querySelector('#updateBtn')
 
 let modal = document.getElementById('addChildModal')
-let modalBtn = document.getElementById('addChildBtn')
+// let modalBtn = document.getElementById('addChildBtn')
+let modalBtn = document.getElementById('gooey-button')
 let span = document.getElementsByClassName('close')[0]
+
+const usdFormatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+})
 
 modalBtn.onclick = () => modal.style.display = 'block'
 
@@ -24,37 +30,77 @@ const createChildCard = (child) => {
 
     
     newChildCard.innerHTML = `
-    <h2>${child.name}</h2>
     
-    <h3>Total</h3>
-    <div class="total">
-    <h5>${child.total}</h5>
+    <section class="name-header">
+    <text class="child-name">${child.name}</text>
+    </section>
+    
+    
+    <div id="total">
+    <text>Total</text>
+    <div class="total-bubble">
+    <text class="total">${usdFormatter.format(child.total)}</text>
+    </div>
+    </div>
+
+    
+    <div id="budget-bubbles">
+
+    <div class="budget-icon">
+    <div class="budget">
+    <text class="sub-total">${usdFormatter.format(child.charity)}</text>
+    </div>
+    <div class="budget-name">
+    <text>Charity</text>
+    </div>
     </div>
     
-    <h5>Tithing</h5>
-    <h5>${child.tithing}</h5>
-    <h5>Savings</h5>
-    <h5>${child.savings}</h5>
-    <h5>Spending</h5>
-    <h5>${child.spending}</h5>
+    
+    <div class="budget-icon">
+    <div class="budget">
+    <text class="sub-total">${usdFormatter.format(child.savings)}</text>
+    </div>
+    <div class="budget-name">
+    <text>Savings</text>
+    </div>
+    </div>
+    
+    <div class="budget-icon">
+    <div class="budget">
+    <text class="sub-total">${usdFormatter.format(child.spending)}</text>
+    </div>
+    <div class="budget-name">
+    <text>Spending</text>
+    </div>
+    </div>
+
+    </div>
     
     <br>
     
-    <h5>Update budget totals</h5>
-    <input id="tithing${child.id}" placeholder="tithing">
-    <input id="savings${child.id}" placeholder="savings">
-    <input id="spending${child.id}" placeholder="spending">
+    <div class="update-text">
+    <text>update budget totals</text>
+    </div>
+
+    <div class="input-container">
+    <input class="input-box" id="charity${child.id}" placeholder="charity">
+    <input class="input-box" id="savings${child.id}" placeholder="savings">
+    <input class="input-box" id="spending${child.id}" placeholder="spending">
+    </div>
     
     <br>
     <br>
-    <button id="updateBtn${child.id}" onclick="updateChild(${child.id})">Update Totals</button>
+    <div class="btn-container">
+    <button class="update-button" id="updateBtn${child.id}" onclick="updateChild(${child.id})">Update Totals</button>
     <br>
     <br>
-    <button onclick="deleteChild(${child.id})">Delete Child</button>
+    <button class="delete-button" onclick="deleteChild(${child.id})">Delete Child</button>
+    </div>
     `
     displayChild.appendChild(newChildCard)
           
 }
+
 
 const displayChildren = (arr) => {
     for(let i = 0;i < arr.length; i++){
@@ -73,14 +119,14 @@ const createChild = () => {
     displayChild.innerHTML = ''
     const name = document.querySelector('#nameInput')
     const total = document.querySelector('#totalInput')
-    const tithing = document.querySelector('#tithingInput')
+    const charity = document.querySelector('#charityInput')
     const savings = document.querySelector('#savingsInput')
     const spending = document.querySelector('#spendingInput')
 
     let bodyObj = {
         name: name.value,
         total: total.value,
-        tithing: tithing.value,
+        charity: charity.value,
         savings: savings.value,
         spending: spending.value
     }
@@ -88,7 +134,7 @@ const createChild = () => {
         .then((res) => {
             name.value = ''
             total.value = ''
-            tithing.value = ''
+            charity.value = ''
             savings.value = ''
             spending.value = ''
             displayChildren(res.data)
@@ -98,12 +144,16 @@ const createChild = () => {
 }
 
 const deleteChild = (id) => {
+    if(confirm("Are you sure you want to delete this child's budget card?")===true){
     axios.delete(`${baseURL}/deleteChild/${id}`)
     .then((res) => {
         displayChild.innerHTML = ''
         displayChildren(res.data)
     })
     .catch((err) => console.log(err))
+}else{
+    alert('Delete Canceled!')
+}
 }
 
 
@@ -111,16 +161,23 @@ const deleteChild = (id) => {
 
 const updateChild = (id) => {
 
-    let tithingInput = document.querySelector(`#tithing${id}`)     
+    let charityInput = document.querySelector(`#charity${id}`)     
     let savingsInput = document.querySelector(`#savings${id}`)
     let spendingInput = document.querySelector(`#spending${id}`)
 
+    if(isNaN(+charityInput.value)){
+        alert('Please enter a valid number')
+        charityInput.value = ''
+        return
+    }
+
     const bodyObj = {
-        tithingInput: tithingInput.value,
+        charityInput: charityInput.value,
         savingsInput: savingsInput.value,
         spendingInput: spendingInput.value
     }
 
+    console.log(bodyObj)
 
     axios.put(`${baseURL}/editChild/${id}`, bodyObj)
     .then((res) => {

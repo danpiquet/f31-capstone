@@ -3,7 +3,7 @@
         "id": 1,
         "name": "Ellie",
         "total": 123.40,
-        "tithing": 12.34,
+        "charity": 12.34,
         "savings": 24.68,
         "spending": 86.38
     },
@@ -11,7 +11,7 @@
         "id": 2,
         "name": "Finley",
         "total": 100.00,
-        "tithing": 10.00,
+        "charity": 10.00,
         "savings": 20.00,
         "spending": 70.00
     },
@@ -19,7 +19,7 @@
         "id": 3,
         "name": "Emma",
         "total": 200.00,
-        "tithing": 20.00,
+        "charity": 20.00,
         "savings": 40.00,
         "spending": 140.00
     }

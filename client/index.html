@@ -6,17 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index.css">
     <title>Dan Piquet Foundations Capstone</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Nerko+One&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
     <header>
-        <h1>Good Budgeting Habits Develop Early</h1>
+        <h1>Budgeting for Kids</h1>
         
     </header>
     <main>
         <section id="addChild">
            
-                <button id="addChildBtn">Add Child</button>
+                <!-- <button id="addChildBtn">Add New Child</button> -->
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                    <defs>
+                        <filter id="gooey">
+                            <!-- in="sourceGraphic" -->
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+                            <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="highContrastGraphic" />
+                            <feComposite in="SourceGraphic" in2="highContrastGraphic" operator="atop" />
+                        </filter>
+                    </defs>
+                </svg>
+            <div id="gooey-container">
+                <button id="gooey-button">
+                    Add New Child
+                    <span class="bubbles">
+                        <span class="bubble"></span>
+                        <span class="bubble"></span>
+                        <span class="bubble"></span>
+                        <span class="bubble"></span>
+                        <span class="bubble"></span>
+                        <span class="bubble"></span>
+                        <span class="bubble"></span>
+                        <span class="bubble"></span>
+                        <span class="bubble"></span>
+                        <span class="bubble"></span>
+                    </span>
+                </button>
+            </div>
                 
                 <div id="addChildModal" class="modal">
                     <div class="modal-content">
@@ -27,7 +56,7 @@
                         <div class="modal-body">
                             <input id="nameInput" placeholder="Name"/>
                             <input id="totalInput" placeholder="Total"/>
-                            <input id="tithingInput" placeholder="Tithing"/>
+                            <input id="charityInput" placeholder="Charity"/>
                             <input id="savingsInput" placeholder="Savings"/>
                             <input id="spendingInput" placeholder="Spending"/>
                             <button id="submitNewChild">Submit</button>    
@@ -39,7 +68,7 @@
                       
                 <br>
                 <br>
-                <h3>Your budget cards</h3>
+                
         <section id="childDisplay"></section>
         </section>
     </main>
