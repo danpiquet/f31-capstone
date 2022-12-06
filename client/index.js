@@ -14,7 +14,7 @@ const usdFormatter = new Intl.NumberFormat('en-US', {
     currency: 'USD',
 })
 
-modalBtn.onclick = () => modal.style.display = 'block'
+modalBtn.onclick = () => modal.style.display = 'flex'
 
 span.onclick = () => modal.style.display = 'none'
 
@@ -118,14 +118,20 @@ const createChild = () => {
 
     displayChild.innerHTML = ''
     const name = document.querySelector('#nameInput')
-    const total = document.querySelector('#totalInput')
     const charity = document.querySelector('#charityInput')
     const savings = document.querySelector('#savingsInput')
     const spending = document.querySelector('#spendingInput')
+    const total = +charity.value + +savings.value + +spending.value
+
+    if(isNaN(+savings.value || +spending.value || +charity.value)){
+        alert('One or more of your inputs is not a valid number -- please enter only integers or decimals')
+        charityInput.value = ''
+        return
+    }
 
     let bodyObj = {
         name: name.value,
-        total: total.value,
+        total,
         charity: charity.value,
         savings: savings.value,
         spending: spending.value
@@ -165,8 +171,8 @@ const updateChild = (id) => {
     let savingsInput = document.querySelector(`#savings${id}`)
     let spendingInput = document.querySelector(`#spending${id}`)
 
-    if(isNaN(+charityInput.value)){
-        alert('Please enter a valid number')
+    if(isNaN(+charityInput.value || +savingsInput.value || +spendingInput.value)){
+        alert('One or more of your inputs is not a valid number -- please enter only integers or decimals')
         charityInput.value = ''
         return
     }
