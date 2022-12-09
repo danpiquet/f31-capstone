@@ -22,7 +22,7 @@ Bite-Sized Budgets is a web app created by Dan Piquet.
 * Express
 
 
-## <a name="run"></a>How to locally run There and Back Again
+## <a name="run"></a>How to locally run Bite-Sized Budgets
 
 Bite-Sized Budgets has not yet been deployed, so here is how to run the app locally on your machine.
 
