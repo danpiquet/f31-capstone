@@ -3,7 +3,7 @@ The primary goal of this project is to enable families to teach kids about finan
 
 Bite-Sized Budgets is a web app created by Dan Piquet.
 
-
+<!-- 
 
 
 ## Table of Contents
@@ -26,16 +26,12 @@ Bite-Sized Budgets is a web app created by Dan Piquet.
 
 Bite-Sized Budgets has not yet been deployed, so here is how to run the app locally on your machine.
 
- * Set up your C++ dependencies
- 	* `source ./bootstrap.sh`
- * Compile your source
-    * `source ./build_osrm.sh`
- * Run OSRM
-   * "Running OSRM" is here https://github.com/Project-OSRM/osrm-backend/wiki/Running-OSRM 
-   However, this is exactly what you need to do for There and Back Again:
-  	* `osrm-extract san-francisco_california.osm.pbf -p profiles/foot_crime.lua` (the `*.osm.pbf` file is downloaded from [here](https://mapzen.com/data/metro-extracts))
-  	* `osrm-prepare san-francisco_california.osrm -p profiles/foot_crime.lua`
-  	* `osrm-routed san-francisco_california.osrm` -- this command is what will actually start your server, as long as the last two steps were successful; you can now go to `localhost:5000/viaroute?…` as described [here](https://github.com/Project-OSRM/osrm-backend/wiki/Server-api#service-viaroute)
+ * Clone this repo
+ Install npm in the project folder
+    * `npm install`
+ * Run nodemon
+   * `nodemon`
+ * Open index.html with the LiveServer extension in VSCode
 
 ### Run the There and Back Again Flask App
 
@@ -74,3 +70,4 @@ This button will query the database for all points within 5 meters of the safe r
 
 ## <a name="author"></a>Author
 Amanda Meurer is a software engineer in San Francisco, CA.
+ -->
